@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Passo a passo com imagens, para Android e iPhone, de 8 ajustes do celular que deixam a romaria mais segura.">
+<title>Celular na Romaria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bitter:wght@600;800&display=swap">
+<style>
+/* Layout: guia de leitura vertical, um tutorial por bloco; passos em fila de telas ilustradas. Azul do manto + dourado. */
+:root{
+  --bg:#f3f6fb; --fg:#13213d; --muted:#4b5a75; --card:#ffffff; --line:#d6deea;
+  --accent:#1c3d8c; --accent-ink:#ffffff; --gold:#b9862a; --gold-soft:#f6ecd6; --sos:#b3261e; --sos-soft:#fbe9e7;
+  --tap:#e0452b;
+  /* telas ilustradas: sempre claras, como um celular de verdade */
+  --ph-frame:#1c2333; --ph-bg:#ffffff; --ph-fg:#1a1f2b; --ph-row:#eff2f7; --ph-hl:#fff3c4; --ph-mute:#677086;
+  --ph-on:#2e9d5a; --ph-blue:#1a73e8; --ph-map:#e4eedc; --ph-road:#ffffff; --ph-lock:#22324f; --ph-chat:#ece5dd; --ph-wa:#1f7a5c; --ph-white:#ffffff;
+  --display:"Bitter", Georgia, "Times New Roman", serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", Roboto, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1424; --fg:#e8edf7; --muted:#a4b1c9; --card:#152036; --line:#2a3858;
+    --accent:#8fb0ff; --accent-ink:#0d1424; --gold:#e2b65c; --gold-soft:#2c2617; --sos:#ff8a80; --sos-soft:#3a1d1b;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1424; --fg:#e8edf7; --muted:#a4b1c9; --card:#152036; --line:#2a3858;
+  --accent:#8fb0ff; --accent-ink:#0d1424; --gold:#e2b65c; --gold-soft:#2c2617; --sos:#ff8a80; --sos-soft:#3a1d1b;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+.wrap{max-width:68rem;margin:0 auto;padding-inline:16px;padding-block:0 3rem}
+header.top{padding-block:2rem 1.25rem}
+.eyebrow{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2rem,6vw,3.2rem);line-height:1.08;margin:.4rem 0 .6rem;text-wrap:balance;color:var(--fg)}
+.lead{max-width:40rem;color:var(--muted);margin:0;font-size:1.125rem}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:.75rem;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between}
+.bar span{color:var(--muted);font-size:.95rem}
+.seg{display:inline-flex;border:2px solid var(--accent);border-radius:999px;overflow:hidden}
+.seg button{font:inherit;font-weight:700;font-size:1rem;padding:.5rem 1.2rem;border:0;background:transparent;color:var(--accent);cursor:pointer;min-height:44px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.seg button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+.sos{margin-block:1.5rem;background:var(--sos-soft);border:2px solid var(--sos);border-radius:14px;padding:1rem 1.1rem}
+.sos h2{font-family:var(--display);font-size:1.2rem;margin:0 0 .2rem;color:var(--sos)}
+.sos p{margin:0 0 .8rem;color:var(--fg)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.6rem}
+.num{background:var(--card);border-radius:10px;padding:.55rem .8rem;display:flex;align-items:baseline;gap:.6rem;border:1px solid var(--line)}
+.num b{font-family:var(--display);font-size:1.7rem;color:var(--sos);font-variant-numeric:tabular-nums}
+.num span{font-size:.95rem;line-height:1.25}
+
+nav.idx{margin-block:1.5rem 2rem}
+nav.idx h2{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 .6rem}
+nav.idx ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.5rem}
+nav.idx a{display:flex;gap:.7rem;align-items:center;padding:.6rem .8rem;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg);text-decoration:none;min-height:48px}
+nav.idx a:hover{border-color:var(--accent)}
+nav.idx i{font-style:normal;font-family:var(--display);font-weight:800;color:var(--gold);font-size:1.2rem;min-width:1.2rem}
+
+section.tut{padding-block:2rem;border-top:1px solid var(--line);scroll-margin-top:5rem}
+.tut-head{display:flex;gap:1rem;align-items:flex-start}
+.badge{flex:none;width:3rem;height:3rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.4rem}
+.tut-head > div{min-width:0}
+.cat{margin:0;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.tut h2{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,3.6vw,1.9rem);line-height:1.15;margin:.15rem 0 .4rem;text-wrap:balance}
+.why{margin:0;color:var(--muted);max-width:42rem}
+.steps{list-style:none;margin:1.4rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1.25rem}
+.step{display:flex;flex-direction:column;gap:.7rem;min-width:0}
+.step svg{width:100%;max-width:15rem;height:auto;display:block;margin-inline:auto}
+.step p{margin:0;display:flex;gap:.6rem;align-items:flex-start}
+.step p b{flex:none;width:1.8rem;height:1.8rem;border-radius:50%;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-size:.95rem;font-variant-numeric:tabular-nums}
+.tip{margin-top:1.4rem;background:var(--gold-soft);border-radius:12px;padding:.8rem 1rem;max-width:46rem}
+.tip strong{color:var(--gold)}
+.note{color:var(--muted);font-size:.95rem}
+footer{border-top:1px solid var(--line);padding-block:1.5rem;color:var(--muted);font-size:.95rem}
+footer p{margin:.3rem 0;max-width:46rem}
+
+svg text{font-family:var(--body)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+<style>body{margin:0} img{max-width:100%} [hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Guia da romaria</p>
+    <h1>Seu celular também caminha com você</h1>
+    <p class="lead">Oito ajustes simples que deixam a caminhada mais segura. Cada um tem o passo a passo em imagens: escolha abaixo o tipo do seu celular.</p>
+  </header>
+
+  <div class="bar">
+    <span>Meu celular é:</span>
+    <div class="seg" role="group" aria-label="Tipo de celular">
+      <button id="os-android" type="button" data-os="android" aria-pressed="true">Android</button>
+      <button id="os-iphone" type="button" data-os="iphone" aria-pressed="false">iPhone</button>
+    </div>
+  </div>
+
+  <aside class="sos" aria-labelledby="sos-t">
+    <h2 id="sos-t">Em emergência, ligue</h2>
+    <p>Funciona sem crédito e com o celular bloqueado.</p>
+    <div class="nums">
+      <div class="num"><b>192</b><span>SAMU<br>ambulância</span></div>
+      <div class="num"><b>193</b><span>Bombeiros</span></div>
+      <div class="num"><b>190</b><span>Polícia Militar</span></div>
+      <div class="num"><b>191</b><span>Polícia Rodoviária Federal</span></div>
+    </div>
+  </aside>
+
+  <nav class="idx" aria-labelledby="idx-t">
+    <h2 id="idx-t">O checklist do panfleto</h2>
+    <ol id="idx"></ol>
+  </nav>
+
+  <main id="tuts"></main>
+
+  <footer>
+    <p>Os nomes dos menus podem mudar um pouco conforme a marca do celular (Samsung, Motorola, Xiaomi) e a versão do sistema. Se não achar a opção, use a lupa de busca dentro de Configurações ou Ajustes.</p>
+    <p>Projeto de extensão universitária · Ciência da Computação. Bom caminho e boa romaria!</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+/* ---------- desenho das telas ---------- */
+function tap(x,y){return `<circle cx="${x}" cy="${y}" r="15" fill="none" stroke="var(--tap)" stroke-width="3"/><circle cx="${x}" cy="${y}" r="5.5" fill="var(--tap)"/>`}
+function frame(inner,o={}){
+  const pw=o.power?'var(--tap)':'var(--ph-frame)', vl=o.vol?'var(--tap)':'var(--ph-frame)';
+  const sbc=o.darkScreen?'var(--ph-white)':'var(--ph-fg)';
+  return `<svg viewBox="-6 0 232 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(o.label||'Ilustração da tela')}">
+  <rect x="215" y="110" width="6" height="46" rx="2" fill="${pw}"/>
+  <rect x="-1" y="96" width="6" height="30" rx="2" fill="${vl}"/><rect x="-1" y="134" width="6" height="30" rx="2" fill="${vl}"/>
+  <rect x="4" y="2" width="212" height="416" rx="30" fill="var(--ph-frame)" stroke="var(--line)"/>
+  <rect x="11" y="9" width="198" height="402" rx="24" fill="${o.darkScreen?'var(--ph-lock)':'var(--ph-bg)'}"/>
+  ${inner}
+  <text x="30" y="29" font-size="11" font-weight="700" fill="${sbc}">9:41</text>
+  <rect x="176" y="20" width="20" height="10" rx="2.5" fill="none" stroke="${sbc}" stroke-width="1.3"/><rect x="178" y="22" width="12" height="6" rx="1" fill="${sbc}"/>
+  </svg>`;
+}
+function toggle(x,y,on){return `<rect x="${x}" y="${y-10}" width="34" height="20" rx="10" fill="${on?'var(--ph-on)':'#c5cad4'}"/><circle cx="${on?x+24:x+10}" cy="${y}" r="8" fill="var(--ph-white)"/>`}
+function listScreen(s){
+  let g='', y=46;
+  if(s.title){
+    const tx=s.back?34:24;
+    if(s.back) g+=`<text x="20" y="${y+20}" font-size="22" fill="var(--ph-blue)">‹</text>`;
+    g+=`<text x="${tx}" y="${y+18}" font-size="${s.title.length>22?12.5:s.title.length>17?14:16.5}" font-weight="700" fill="var(--ph-fg)">${esc(s.title)}</text>`;
+  }
+  let tapAt=null;
+  if(s.avatar){g+=`<circle cx="186" cy="${y+13}" r="12" fill="var(--ph-blue)"/><text x="186" y="${y+17.5}" font-size="12" font-weight="700" text-anchor="middle" fill="var(--ph-white)">M</text>`; if(s.avatar==='hl') tapAt=[186,y+13];}
+  y+=36;
+  if(s.map){g+=mapBlock(20,y,180,96,true); y+=106;}
+  for(const r of (s.rows||[])){
+    if(r.label){g+=`<text x="26" y="${y+12}" font-size="9.5" font-weight="700" letter-spacing=".08em" fill="var(--ph-mute)">${esc(r.label)}</text>`; y+=20; continue;}
+    if(r.btn){
+      g+=`<rect x="20" y="${y}" width="180" height="36" rx="18" fill="var(--ph-blue)" ${r.hl?'stroke="var(--tap)" stroke-width="2.5"':''}/><text x="110" y="${y+22.5}" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ph-white)">${esc(r.btn)}</text>`;
+      if(r.hl) tapAt=[178,y+18]; y+=44; continue;
+    }
+    const h=r.sub?42:36;
+    g+=`<rect x="20" y="${y}" width="180" height="${h}" rx="10" fill="${r.hl?'var(--ph-hl)':'var(--ph-row)'}" ${r.hl?'stroke="var(--tap)" stroke-width="2"':''}/>`;
+    const ty=r.sub?y+17:y+22.5;
+    g+=`<text x="30" y="${ty}" font-size="12" font-weight="${r.hl?700:400}" fill="var(--ph-fg)">${esc(r.t)}</text>`;
+    if(r.sub) g+=`<text x="30" y="${y+32}" font-size="9.5" fill="var(--ph-mute)">${esc(r.sub)}</text>`;
+    let cx=186;
+    if(r.tog!==undefined){g+=toggle(158,y+h/2,r.tog); cx=175;}
+    else if(r.v!==undefined){g+=`<text x="190" y="${ty}" text-anchor="end" font-size="11" fill="var(--ph-mute)">${esc(r.v)}</text>`;}
+    else if(r.radio!==undefined){g+=`<circle cx="186" cy="${y+h/2}" r="7" fill="none" stroke="var(--ph-blue)" stroke-width="2"/>${r.radio?`<circle cx="186" cy="${y+h/2}" r="3.5" fill="var(--ph-blue)"/>`:''}`;}
+    else if(!r.nochev){g+=`<text x="188" y="${ty+1}" font-size="15" fill="var(--ph-mute)">›</text>`;}
+    if(r.hl) tapAt=[cx, y+h/2];
+    y+=h+6;
+  }
+  if(tapAt) g+=tap(tapAt[0],tapAt[1]);
+  return frame(g,{label:s.label});
+}
+function mapBlock(x,y,w,h,pin){
+  let g=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="var(--ph-map)"/>`;
+  g+=`<path d="M${x} ${y+h*0.65} C ${x+w*0.3} ${y+h*0.5}, ${x+w*0.6} ${y+h*0.85}, ${x+w} ${y+h*0.55}" stroke="var(--ph-road)" stroke-width="7" fill="none"/>`;
+  g+=`<path d="M${x+w*0.35} ${y} L ${x+w*0.5} ${y+h}" stroke="var(--ph-road)" stroke-width="5" fill="none"/>`;
+  if(pin) g+=`<circle cx="${x+w*0.48}" cy="${y+h*0.62}" r="7" fill="var(--ph-blue)" stroke="var(--ph-white)" stroke-width="2.5"/>`;
+  return g;
+}
+function lockScreen(s){
+  let g=`<text x="110" y="125" text-anchor="middle" font-size="52" font-weight="700" fill="var(--ph-white)">9:41</text>
+  <text x="110" y="150" text-anchor="middle" font-size="12" fill="var(--ph-white)" opacity=".8">sábado, 10 de outubro</text>
+  <text x="110" y="300" text-anchor="middle" font-size="11" fill="var(--ph-white)" opacity=".7">Digite a senha</text>
+  <rect x="58" y="352" width="104" height="30" rx="15" fill="var(--ph-white)" opacity=".18"/>
+  <text x="110" y="371.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ph-white)">Emergência</text>`;
+  g+=tap(110,367);
+  return frame(g,{darkScreen:true,label:s.label});
+}
+function dialScreen(s){
+  let g='';
+  g+=`<text x="110" y="${s.top?118:96}" text-anchor="middle" font-size="28" font-weight="700" fill="var(--ph-fg)" letter-spacing=".04em">${esc(s.num)}</text>`;
+  if(s.top){g+=`<rect x="30" y="48" width="160" height="34" rx="17" fill="var(--ph-row)"/><text x="110" y="69" text-anchor="middle" font-size="11" font-weight="700" fill="var(--sos)">${esc(s.top)}</text>`;}
+  const keys=['1','2','3','4','5','6','7','8','9','*','0','#'];
+  const y0=s.top?150:130;
+  keys.forEach((k,i)=>{const cx=60+(i%3)*50, cy=y0+Math.floor(i/3)*46;
+    g+=`<circle cx="${cx}" cy="${cy}" r="19" fill="var(--ph-row)"/><text x="${cx}" y="${cy+6}" text-anchor="middle" font-size="17" fill="var(--ph-fg)">${k}</text>`;});
+  g+=`<circle cx="110" cy="372" r="22" fill="var(--ph-on)"/><path d="M101 366 q2 -6 6 -3 l2 3 q1 2 -1 3 q2 5 6 7 q1 -2 3 -1 l3 2 q3 4 -3 6 q-12 -3 -16 -17z" fill="var(--ph-white)"/>`;
+  if(s.result){
+    g+=`<rect x="22" y="160" width="176" height="110" rx="14" fill="var(--ph-bg)" stroke="var(--ph-mute)" stroke-width="1"/>
+    <text x="110" y="190" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ph-fg)">Informações do aparelho</text>
+    <text x="110" y="214" text-anchor="middle" font-size="10.5" fill="var(--ph-mute)">IMEI</text>
+    <rect x="34" y="222" width="152" height="28" rx="6" fill="var(--ph-hl)" stroke="var(--tap)" stroke-width="2"/>
+    <text x="110" y="241" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ph-fg)" letter-spacing=".05em">35 214809 123456 7</text>`;
+  } else if(s.call){ g+=tap(110,372); }
+  return frame(g,{label:s.label});
+}
+function buttonsScreen(s){
+  let g='';
+  if(s.mode==='hold'){
+    g+=`<text x="110" y="150" text-anchor="middle" font-size="14" fill="var(--ph-fg)">Segure ao mesmo tempo</text>
+    <text x="110" y="196" text-anchor="middle" font-size="22" font-weight="700" fill="var(--tap)">lateral + volume</text>
+    <text x="110" y="226" text-anchor="middle" font-size="11.5" fill="var(--ph-mute)">e arraste “SOS de Emergência”</text>
+    <path d="M150 128 L203 128" stroke="var(--tap)" stroke-width="3" marker-end="url(#ah)"/>
+    <path d="M70 128 L17 128" stroke="var(--tap)" stroke-width="3" marker-end="url(#ah)"/>`;
+  } else {
+    g+=`<text x="110" y="168" text-anchor="middle" font-size="14" fill="var(--ph-fg)">Aperte rápido</text>
+    <text x="110" y="232" text-anchor="middle" font-size="64" font-weight="700" fill="var(--tap)">5×</text>
+    <text x="110" y="262" text-anchor="middle" font-size="12.5" fill="var(--ph-fg)">${esc(s.btn||'o botão de ligar')}</text>
+    <path d="M150 150 L203 135" stroke="var(--tap)" stroke-width="3" marker-end="url(#ah)"/>
+    <rect x="40" y="310" width="140" height="40" rx="12" fill="var(--ph-row)"/>
+    <text x="110" y="327" text-anchor="middle" font-size="10.5" fill="var(--ph-mute)">O celular toca um alarme</text>
+    <text x="110" y="341" text-anchor="middle" font-size="10.5" fill="var(--ph-mute)">e depois liga sozinho</text>`;
+  }
+  g=`<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="var(--tap)"/></marker></defs>`+g;
+  return frame(g,{power:true,vol:s.mode==='hold',label:s.label});
+}
+function chatBase(os){
+  let g=`<rect x="11" y="38" width="198" height="373" fill="var(--ph-chat)"/>
+  <rect x="11" y="38" width="198" height="44" fill="var(--ph-wa)"/>
+  <circle cx="40" cy="60" r="13" fill="var(--ph-white)" opacity=".85"/>
+  <text x="62" y="58" font-size="13" font-weight="700" fill="var(--ph-white)">Família</text>
+  <text x="62" y="72" font-size="9.5" fill="var(--ph-white)" opacity=".85">mãe, João, Ana</text>
+  <rect x="22" y="100" width="130" height="30" rx="10" fill="var(--ph-white)"/><text x="32" y="119" font-size="11" fill="var(--ph-fg)">Já saiu de casa?</text>
+  <rect x="80" y="140" width="118" height="30" rx="10" fill="#d4f5c9"/><text x="90" y="159" font-size="11" fill="var(--ph-fg)">Saindo agora! 🙏</text>
+  <rect x="20" y="364" width="180" height="34" rx="17" fill="var(--ph-white)"/>
+  <text x="${os==='iphone'?64:46}" y="385" font-size="11" fill="var(--ph-mute)">Mensagem</text>`;
+  return g;
+}
+function clipIcon(x,y){return `<path transform="translate(${x} ${y}) rotate(40)" d="M-3 5 V-5 a3 3 0 0 1 6 0 V6 a5 5 0 0 1 -10 0 V-4" fill="none" stroke="var(--ph-fg)" stroke-width="1.8" stroke-linecap="round"/>`}
+function chatScreen(s){
+  let g=chatBase(s.os);
+  if(s.os==='iphone'){ g+=`<text x="38" y="388" text-anchor="middle" font-size="24" fill="var(--ph-blue)">+</text>`; g+=tap(38,381); }
+  else { g+=clipIcon(160,381)+tap(160,381); }
+  return frame(g,{label:s.label});
+}
+function sheetScreen(s){
+  let g=chatBase(s.os)+`<rect x="11" y="38" width="198" height="373" fill="#000" opacity=".35"/>`;
+  if(s.os==='iphone'){
+    g+=`<rect x="11" y="190" width="198" height="221" rx="18" fill="var(--ph-bg)"/>`;
+    const items=['Fotos','Câmera','Localização','Contato','Documento'];
+    items.forEach((t,i)=>{const y=206+i*38, hl=t==='Localização';
+      g+=`<rect x="22" y="${y}" width="176" height="32" rx="8" fill="${hl?'var(--ph-hl)':'var(--ph-bg)'}" ${hl?'stroke="var(--tap)" stroke-width="2"':''}/><circle cx="40" cy="${y+16}" r="8" fill="${hl?'var(--ph-on)':'var(--ph-row)'}"/><text x="56" y="${y+20}" font-size="12" font-weight="${hl?700:400}" fill="var(--ph-fg)">${t}</text>`;
+      if(hl) g+=tap(176,y+16);
+    });
+  } else {
+    g+=`<rect x="20" y="196" width="180" height="160" rx="16" fill="var(--ph-bg)"/>`;
+    const items=['Documento','Câmera','Galeria','Áudio','Localização','Contato'];
+    items.forEach((t,i)=>{const cx=52+(i%3)*58, cy=236+Math.floor(i/3)*66, hl=t==='Localização';
+      g+=`<circle cx="${cx}" cy="${cy}" r="18" fill="${hl?'var(--ph-on)':'var(--ph-row)'}"/><text x="${cx}" y="${cy+32}" text-anchor="middle" font-size="9.5" font-weight="${hl?700:400}" fill="var(--ph-fg)">${t}</text>`;
+      if(hl) g+=tap(cx,cy);
+    });
+  }
+  return frame(g,{label:s.label});
+}
+function mapsScreen(s){
+  let g=`<rect x="11" y="38" width="198" height="373" fill="var(--ph-map)"/>`;
+  g+=`<path d="M11 260 C 70 230, 120 300, 209 250" stroke="var(--ph-road)" stroke-width="10" fill="none"/><path d="M80 38 L 130 411" stroke="var(--ph-road)" stroke-width="7" fill="none"/><path d="M11 150 L 209 120" stroke="var(--ph-road)" stroke-width="5" fill="none"/>`;
+  if(s.mode==='select'){
+    g+=`<rect x="11" y="38" width="198" height="373" fill="#000" opacity=".28"/>
+    <rect x="34" y="110" width="152" height="180" fill="var(--ph-map)" stroke="var(--ph-blue)" stroke-width="3" stroke-dasharray="7 5"/>
+    <path d="M34 238 C 80 220, 120 280, 186 240" stroke="var(--ph-road)" stroke-width="8" fill="none"/>
+    <rect x="22" y="52" width="176" height="40" rx="10" fill="var(--ph-bg)"/>
+    <text x="110" y="69" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ph-fg)">Baixar este mapa?</text>
+    <text x="110" y="84" text-anchor="middle" font-size="9.5" fill="var(--ph-mute)">Ajuste a área com dois dedos</text>
+    <rect x="50" y="340" width="120" height="38" rx="19" fill="var(--ph-blue)" stroke="var(--tap)" stroke-width="2.5"/>
+    <text x="110" y="364" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ph-white)">Baixar</text>`+tap(146,359);
+  } else {
+    g+=`<circle cx="104" cy="205" r="8" fill="var(--ph-blue)" stroke="var(--ph-white)" stroke-width="3"/>
+    <rect x="20" y="46" width="180" height="36" rx="18" fill="var(--ph-bg)"/>
+    <text x="38" y="68" font-size="11.5" fill="var(--ph-mute)">Pesquise aqui</text>
+    <circle cx="184" cy="64" r="12" fill="var(--ph-blue)"/><text x="184" y="68.5" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ph-white)">M</text>`+tap(184,64);
+  }
+  return frame(g,{label:s.label});
+}
+function statScreen(s){
+  let g=`<text x="24" y="66" font-size="16.5" font-weight="700" fill="var(--ph-fg)">${esc(s.title)}</text>
+  <circle cx="110" cy="170" r="64" fill="none" stroke="var(--ph-row)" stroke-width="14"/>
+  <path d="M110 106 A64 64 0 1 1 52 197" fill="none" stroke="var(--ph-on)" stroke-width="14" stroke-linecap="round"/>
+  <text x="110" y="172" text-anchor="middle" font-size="26" font-weight="700" fill="var(--ph-fg)">18.432</text>
+  <text x="110" y="192" text-anchor="middle" font-size="11" fill="var(--ph-mute)">passos hoje</text>
+  <rect x="20" y="262" width="86" height="56" rx="10" fill="var(--ph-hl)" stroke="var(--tap)" stroke-width="2"/>
+  <text x="63" y="286" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ph-fg)">12,6 km</text>
+  <text x="63" y="304" text-anchor="middle" font-size="9.5" fill="var(--ph-mute)">distância</text>
+  <rect x="114" y="262" width="86" height="56" rx="10" fill="var(--ph-row)"/>
+  <text x="157" y="286" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ph-fg)">3h 05</text>
+  <text x="157" y="304" text-anchor="middle" font-size="9.5" fill="var(--ph-mute)">em movimento</text>`;
+  return frame(g,{label:s.label});
+}
+const R={list:listScreen,lock:lockScreen,dial:dialScreen,buttons:buttonsScreen,chat:chatScreen,sheet:sheetScreen,maps:mapsScreen,stat:statScreen};
+
+/* ---------- conteúdo ---------- */
+const T=[
+{id:'ficha',cat:'Segurança',title:'Ficha médica e contato de emergência',
+ why:'Se você passar mal na estrada, quem te socorrer consegue ver seu tipo sanguíneo, alergias e para quem ligar, sem precisar da sua senha.',
+ android:[
+  {t:'Abra Configurações e toque em Segurança e emergência.',s:{k:'list',title:'Configurações',rows:[{t:'Conexões'},{t:'Sons e vibração'},{t:'Tela'},{t:'Bateria'},{t:'Segurança e emergência',hl:1}]}},
+  {t:'Toque em Informações médicas.',s:{k:'list',title:'Segurança e emergência',back:1,rows:[{t:'Informações médicas',hl:1},{t:'Contatos de emergência'},{t:'SOS de emergência'},{t:'Alertas de emergência'}]}},
+  {t:'Preencha seus dados e ative Mostrar na tela de bloqueio.',s:{k:'list',title:'Informações médicas',back:1,rows:[{t:'Nome',v:'Maria S.'},{t:'Tipo sanguíneo',v:'O+'},{t:'Alergias',v:'Dipirona'},{t:'Medicamentos',v:'Losartana'},{t:'Mostrar no bloqueio',tog:true,hl:1}]}},
+  {t:'Volte e toque em Contatos de emergência para adicionar alguém da família.',s:{k:'list',title:'Contatos de emergência',back:1,rows:[{label:'SEUS CONTATOS'},{t:'João (filho)',sub:'(11) 98765-4321',nochev:1},{btn:'+ Adicionar contato',hl:1}]}}
+ ],
+ iphone:[
+  {t:'Abra o app Saúde e toque na sua foto, no canto de cima.',s:{k:'list',title:'Resumo',avatar:'hl',rows:[{label:'FIXADOS'},{t:'Passos',v:'5.210'},{t:'Distância',v:'3,8 km'},{t:'Frequência cardíaca',v:'78'}]}},
+  {t:'Toque em Ficha Médica e depois em Editar.',s:{k:'list',title:'Perfil',back:1,rows:[{t:'Detalhes de Saúde'},{t:'Ficha Médica',hl:1},{t:'Dispositivos'},{t:'Privacidade'}]}},
+  {t:'Preencha seus dados e ative Mostrar com Bloqueio.',s:{k:'list',title:'Ficha Médica',back:1,rows:[{t:'Tipo sanguíneo',v:'O+'},{t:'Alergias',v:'Dipirona'},{t:'Medicamentos',v:'Losartana'},{t:'Mostrar c/ Bloqueio',tog:true,hl:1}]}},
+  {t:'Em Contatos de Emergência, toque em adicionar e escolha alguém da família.',s:{k:'list',title:'Ficha Médica',back:1,rows:[{label:'CONTATOS DE EMERGÊNCIA'},{t:'João (filho)',sub:'(11) 98765-4321',nochev:1},{btn:'+ adicionar contato',hl:1}]}}
+ ],
+ tip:'<strong>Para testar:</strong> bloqueie a tela, toque em Emergência e depois em Ficha Médica (iPhone) ou Informações de emergência (Android). Não coloque endereço nem documentos, porque qualquer pessoa consegue ver esses dados.'},
+
+{id:'sos',cat:'Segurança',title:'SOS rápido pelo botão',
+ why:'Numa emergência, você não precisa desbloquear nem discar: o botão lateral liga para o socorro e avisa seus contatos de emergência.',
+ android:[
+  {t:'Em Configurações, toque em Segurança e emergência e depois em SOS de emergência.',s:{k:'list',title:'Segurança e emergência',back:1,rows:[{t:'Informações médicas'},{t:'Contatos de emergência'},{t:'SOS de emergência',hl:1},{t:'Alertas de emergência'}]}},
+  {t:'Ative a opção. Confira para qual número o celular vai ligar.',s:{k:'list',title:'SOS de emergência',back:1,rows:[{t:'Usar SOS',tog:true,hl:1},{t:'Ligar para',v:'190'},{t:'Avisar contatos',tog:true},{t:'Tocar alarme',tog:true}]}},
+  {t:'Na emergência, aperte o botão de ligar 5 vezes seguidas.',s:{k:'buttons',mode:'press',btn:'o botão de ligar/desligar'}}
+ ],
+ iphone:[
+  {t:'Abra Ajustes e toque em SOS de Emergência.',s:{k:'list',title:'Ajustes',rows:[{t:'Geral'},{t:'Tela e Brilho'},{t:'Bateria'},{t:'SOS de Emergência',hl:1},{t:'Privacidade'}]}},
+  {t:'Ative Ligar com Botão Lateral (em alguns modelos: Pressionar 5 vezes).',s:{k:'list',title:'SOS de Emergência',back:1,rows:[{t:'Ligar Segurando',tog:true},{t:'Ligar c/ Botão Lateral',tog:true,hl:1},{t:'Contatos de Emergência'}]}},
+  {t:'Na emergência, aperte o botão lateral 5 vezes rápido.',s:{k:'buttons',mode:'press',btn:'o botão lateral'}},
+  {t:'Ou segure o botão lateral junto com o volume e arraste SOS.',s:{k:'buttons',mode:'hold'}}
+ ],
+ tip:'<strong>Atenção:</strong> o celular toca um alarme alto e conta alguns segundos antes de ligar. Se disparar sem querer, cancele antes do fim da contagem.'},
+
+{id:'numeros',cat:'Segurança',title:'Ligar para o socorro sem crédito',
+ why:'Os números de emergência são gratuitos e funcionam até com a tela bloqueada, sem saber a senha.',
+ both:[
+  {t:'Na tela de bloqueio, toque em Emergência.',s:{k:'lock'}},
+  {t:'Digite o número e toque no botão verde.',s:{k:'dial',num:'192',call:1}}
+ ],
+ tip:'<strong>Guarde:</strong> 192 SAMU · 193 Bombeiros · 190 Polícia Militar · 191 Polícia Rodoviária Federal (estradas federais). Diga onde você está: nome da estrada, quilômetro (placas na beira da pista) ou um ponto de referência.'},
+
+{id:'localizacao',cat:'Localização',title:'Localização em tempo real para a família',
+ why:'Sua família acompanha pelo mapa onde você está, sem precisar ficar ligando, e sabe chegar até você se precisar.',
+ android:[
+  {t:'Abra a conversa da família no WhatsApp e toque no clipe.',s:{k:'chat',os:'android'}},
+  {t:'Toque em Localização.',s:{k:'sheet',os:'android'}},
+  {t:'Toque em Localização em tempo real.',s:{k:'list',title:'Enviar localização',back:1,map:1,rows:[{t:'Em tempo real',sub:'Atualiza enquanto você anda',hl:1},{t:'Localização atual',sub:'Só o ponto de agora'}]}},
+  {t:'Escolha 8 horas e toque em enviar.',s:{k:'list',title:'Por quanto tempo?',back:1,rows:[{t:'15 minutos',radio:false},{t:'1 hora',radio:false},{t:'8 horas',radio:true,hl:1},{btn:'Enviar'}]}}
+ ],
+ iphone:[
+  {t:'Abra a conversa da família no WhatsApp e toque no +.',s:{k:'chat',os:'iphone'}},
+  {t:'Toque em Localização.',s:{k:'sheet',os:'iphone'}},
+  {t:'Toque em Compartilhar localização em tempo real.',s:{k:'list',title:'Localização',back:1,map:1,rows:[{t:'Tempo real',sub:'Atualiza enquanto você anda',hl:1},{t:'Enviar localização atual',sub:'Só o ponto de agora'}]}},
+  {t:'Escolha 8 horas e toque em enviar.',s:{k:'list',title:'Por quanto tempo?',back:1,rows:[{t:'15 minutos',radio:false},{t:'1 hora',radio:false},{t:'8 horas',radio:true,hl:1},{btn:'Enviar'}]}}
+ ],
+ tip:'<strong>Lembre:</strong> a Localização (GPS) precisa estar ligada, e isso gasta mais bateria. Para parar, toque em Parar de compartilhar na própria conversa.'},
+
+{id:'mapa',cat:'Localização',title:'Mapa que funciona sem internet',
+ why:'Na estrada o sinal cai bastante. Com o mapa baixado, o Google Maps continua mostrando onde você está e o caminho, mesmo sem internet.',
+ both:[
+  {t:'Em casa, no Wi‑Fi, abra o Google Maps e toque na sua foto.',s:{k:'maps',mode:'home'}},
+  {t:'Toque em Mapas off-line.',s:{k:'list',title:'Sua conta',rows:[{t:'Seu perfil'},{t:'Linha do tempo'},{t:'Mapas off-line',hl:1},{t:'Configurações'},{t:'Ajuda'}]}},
+  {t:'Toque em Selecionar seu mapa.',s:{k:'list',title:'Mapas off-line',back:1,rows:[{t:'Selecionar seu mapa',hl:1},{label:'MAPAS BAIXADOS'},{t:'Nenhum mapa ainda',nochev:1}]}},
+  {t:'Ajuste o quadrado para cobrir o caminho e toque em Baixar.',s:{k:'maps',mode:'select'}}
+ ],
+ tip:'<strong>Dica:</strong> se o trajeto for longo, baixe mais de um pedaço. O mapa ocupa espaço no celular; depois da romaria você pode apagar.'},
+
+{id:'bateria',cat:'Bateria e celular',title:'Bateria que dura a caminhada',
+ why:'Com o modo de economia, o celular segura a carga por muito mais tempo, e você não fica sem como pedir ajuda.',
+ android:[
+  {t:'Abra Configurações e toque em Bateria.',s:{k:'list',title:'Configurações',rows:[{t:'Conexões'},{t:'Tela'},{t:'Bateria',hl:1},{t:'Segurança e emergência'}]}},
+  {t:'Ative Economia de energia.',s:{k:'list',title:'Bateria',back:1,rows:[{t:'Carga',v:'64%'},{t:'Economia de energia',tog:true,hl:1},{t:'Uso da bateria'}]}}
+ ],
+ iphone:[
+  {t:'Abra Ajustes e toque em Bateria.',s:{k:'list',title:'Ajustes',rows:[{t:'Geral'},{t:'Tela e Brilho'},{t:'Bateria',hl:1},{t:'SOS de Emergência'}]}},
+  {t:'Ative Modo de Pouca Energia. O ícone da bateria fica amarelo.',s:{k:'list',title:'Bateria',back:1,rows:[{t:'Porcentagem',tog:true},{t:'Pouca Energia',tog:true,hl:1},{t:'Saúde da Bateria'}]}}
+ ],
+ tip:'<strong>Mais carga:</strong> abaixe o brilho da tela, feche os apps que não está usando e leve um carregador portátil (power bank) com o cabo.'},
+
+{id:'roubo',cat:'Bateria e celular',title:'Proteção se perder ou for roubado',
+ why:'Com isso pronto antes de sair, dá para achar o celular no mapa ou bloquear o aparelho, a linha e os apps de banco rapidinho.',
+ android:[
+  {t:'No telefone, digite *#06#. Anote o IMEI no papel ou mande para alguém da família.',s:{k:'dial',num:'*#06#',result:1}},
+  {t:'Em Configurações, toque em Google e depois em Encontre Meu Dispositivo. Deixe ativado.',s:{k:'list',title:'Encontre Meu Dispositivo',back:1,rows:[{t:'Usar o recurso',tog:true,hl:1},{t:'Rede Encontre',tog:true},{t:'Abrir o app'}]}},
+  {t:'Baixe o app Celular Seguro, entre com o gov.br e cadastre seu telefone e uma pessoa de confiança.',s:{k:'list',title:'Celular Seguro',rows:[{t:'Pessoas de confiança'},{t:'Registrar telefone',hl:1},{t:'Registrar ocorrência'}]}}
+ ],
+ iphone:[
+  {t:'No telefone, digite *#06#. Anote o IMEI no papel ou mande para alguém da família.',s:{k:'dial',num:'*#06#',result:1}},
+  {t:'Em Ajustes, toque no seu nome, depois em Buscar e em Buscar iPhone. Deixe ativado.',s:{k:'list',title:'Buscar iPhone',back:1,rows:[{t:'Buscar iPhone',tog:true,hl:1},{t:'Rede do Buscar',tog:true},{t:'Última Localização',tog:true}]}},
+  {t:'Baixe o app Celular Seguro, entre com o gov.br e cadastre seu telefone e uma pessoa de confiança.',s:{k:'list',title:'Celular Seguro',rows:[{t:'Pessoas de confiança'},{t:'Registrar telefone',hl:1},{t:'Registrar ocorrência'}]}}
+ ],
+ tip:'<strong>Se acontecer:</strong> você ou a pessoa de confiança emitem o alerta no app ou no site do Celular Seguro, de qualquer aparelho. Ele só funciona para telefones cadastrados antes, por isso faça o cadastro já.'},
+
+{id:'agua',cat:'Saúde e motivação',title:'Lembrete de água e contador de passos',
+ why:'Na caminhada é fácil esquecer de beber água. E ver os quilômetros vencidos dá ânimo para seguir.',
+ android:[
+  {t:'Abra o app Relógio, vá em Alarme e toque em +.',s:{k:'list',title:'Alarme',rows:[{t:'07:00',sub:'Acordar',tog:true},{t:'09:00',sub:'Beber água',tog:true},{btn:'+ Novo alarme',hl:1}]}},
+  {t:'Escolha o horário e dê o nome Beber água. Crie um a cada 1 ou 2 horas.',s:{k:'list',title:'Novo alarme',back:1,rows:[{t:'Horário',v:'10:00'},{t:'Nome do alarme',v:'Beber água',hl:1},{t:'Repetir',v:'Todo dia'},{btn:'Salvar'}]}},
+  {t:'Para ver passos e quilômetros, abra o Samsung Health ou o Google Fit.',s:{k:'stat',title:'Atividade de hoje'}}
+ ],
+ iphone:[
+  {t:'Abra o app Relógio, vá em Alarmes e toque em +.',s:{k:'list',title:'Alarmes',rows:[{t:'07:00',sub:'Acordar',tog:true},{t:'09:00',sub:'Beber água',tog:true},{btn:'+ Novo alarme',hl:1}]}},
+  {t:'Escolha o horário e, em Nome, escreva Beber água. Crie um a cada 1 ou 2 horas.',s:{k:'list',title:'Adicionar Alarme',back:1,rows:[{t:'Horário',v:'10:00'},{t:'Nome',v:'Beber água',hl:1},{t:'Repetir',v:'Todo dia'},{btn:'Salvar'}]}},
+  {t:'Para ver passos e quilômetros, abra o app Saúde (Resumo).',s:{k:'stat',title:'Resumo'}}
+ ],
+ tip:'<strong>Na estrada:</strong> beba antes de sentir sede e aproveite os pontos de apoio para encher a garrafa.'}
+];
+
+/* ---------- montagem ---------- */
+const idx=document.getElementById('idx'), main=document.getElementById('tuts');
+T.forEach((it,i)=>{
+  idx.insertAdjacentHTML('beforeend',`<li><a href="#${it.id}"><i>${i+1}</i><span>${esc(it.title)}</span></a></li>`);
+  const sec=document.createElement('section'); sec.className='tut'; sec.id=it.id;
+  sec.innerHTML=`<div class="tut-head"><div class="badge">${i+1}</div><div><p class="cat">${esc(it.cat)}</p><h2>${esc(it.title)}</h2><p class="why">${esc(it.why)}</p></div></div><ol class="steps"></ol><p class="tip">${it.tip}</p>`;
+  main.appendChild(sec);
+});
+function render(os){
+  T.forEach(it=>{
+    const steps=it.both||it[os];
+    const ol=document.querySelector('#'+it.id+' .steps');
+    ol.innerHTML=steps.map((st,j)=>{
+      const spec=Object.assign({label:st.t},st.s);
+      return `<li class="step">${R[spec.k](spec)}<p><b>${j+1}</b><span>${esc(st.t)}</span></p></li>`;
+    }).join('');
+  });
+  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.os===os)));
+}
+let os='android';
+try{const s=localStorage.getItem('os'); if(s==='android'||s==='iphone') os=s; else if(/iPhone|iPad|iPod/.test(navigator.userAgent)) os='iphone';}catch(e){ if(/iPhone|iPad|iPod/.test(navigator.userAgent)) os='iphone'; }
+render(os);
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{os=b.dataset.os; render(os); try{localStorage.setItem('os',os)}catch(e){}}));
+})();
+</script>
+</body>
+</html>
